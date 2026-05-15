@@ -32,7 +32,7 @@ from tensor2robot.utils import tfdata
 from tensor2robot.utils import train_eval
 import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import predictor as contrib_predictor
+from tensor2robot._tf2_compat import predictor as contrib_predictor  # was: from tensorflow.contrib import predictor as contrib_predictor (TF 2.x compat shim)
 FLAGS = flags.FLAGS
 
 _NUM_CONDITION_SAMPLES_PER_TASK = 2

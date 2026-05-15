@@ -28,7 +28,7 @@ from tensor2robot.preprocessors import tpu_preprocessor_wrapper
 from tensor2robot.utils import tensorspec_utils
 import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import tpu as contrib_tpu
+from tensor2robot._tf2_compat import tpu as contrib_tpu  # was: from tensorflow.contrib import tpu as contrib_tpu (TF 2.x compat shim)
 
 FLAGS = flags.FLAGS
 TRAIN = tf_estimator.ModeKeys.TRAIN

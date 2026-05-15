@@ -35,8 +35,8 @@ from tensor2robot.utils import tensorspec_utils
 from tensorflow.compat.v1 import estimator as tf_estimator
 import tensorflow.compat.v1 as tf  # tf
 
-from tensorflow.contrib import tpu as contrib_tpu
-from tensorflow.contrib import training as contrib_training
+from tensor2robot._tf2_compat import tpu as contrib_tpu  # was: from tensorflow.contrib import tpu as contrib_tpu (TF 2.x compat shim)
+from tensor2robot._tf2_compat import training as contrib_training  # was: from tensorflow.contrib import training as contrib_training (TF 2.x compat shim)
 
 ExporterFn = Callable[[
     model_interface.ModelInterface, abstract_export_generator

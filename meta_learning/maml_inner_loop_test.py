@@ -19,7 +19,7 @@ from absl.testing import parameterized
 from six.moves import range
 from tensor2robot.meta_learning import maml_inner_loop
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import graph_editor as contrib_graph_editor
+from tensor2robot._tf2_compat import graph_editor as contrib_graph_editor  # was: from tensorflow.contrib import graph_editor as contrib_graph_editor (TF 2.x compat shim)
 
 LEARNING_RATE = 0.001
 TARGET = 'target'

@@ -24,7 +24,7 @@ import gin
 from tensor2robot.layers import vision_layers
 import tensorflow.compat.v1 as tf  # tf
 from tf_slim import losses as slim_losses
-from tensorflow.contrib import layers
+from tensor2robot._tf2_compat import layers  # was: from tensorflow.contrib import layers (TF 2.x compat shim)
 
 
 def embed_fullstate(fullstate,

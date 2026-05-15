@@ -22,8 +22,8 @@ from tensor2robot.preprocessors import noop_preprocessor
 from tensor2robot.utils import mocks
 import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import predictor as contrib_predictor
-from tensorflow.contrib import tpu as contrib_tpu
+from tensor2robot._tf2_compat import predictor as contrib_predictor  # was: from tensorflow.contrib import predictor as contrib_predictor (TF 2.x compat shim)
+from tensor2robot._tf2_compat import tpu as contrib_tpu  # was: from tensorflow.contrib import tpu as contrib_tpu (TF 2.x compat shim)
 
 MAX_STEPS = 4000
 BATCH_SIZE = 32

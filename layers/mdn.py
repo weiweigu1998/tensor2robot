@@ -22,7 +22,7 @@ import numpy as np
 from tensor2robot.meta_learning import meta_tfdata
 import tensorflow.compat.v1 as tf
 import tensorflow_probability as tfp
-from tensorflow.contrib import slim as contrib_slim
+from tensor2robot._tf2_compat import slim as contrib_slim  # was: from tensorflow.contrib import slim as contrib_slim (TF 2.x compat shim)
 
 slim = contrib_slim
 

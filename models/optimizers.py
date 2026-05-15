@@ -20,7 +20,7 @@ from typing import Callable
 import gin
 import gin.tf
 import tensorflow.compat.v1 as tf  # tf
-from tensorflow.contrib import opt as contrib_opt
+from tensor2robot._tf2_compat import opt as contrib_opt  # was: from tensorflow.contrib import opt as contrib_opt (TF 2.x compat shim)
 
 
 @gin.configurable

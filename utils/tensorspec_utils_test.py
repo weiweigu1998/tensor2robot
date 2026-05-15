@@ -26,7 +26,7 @@ import numpy as np
 from six.moves import zip
 from tensor2robot.utils import tensorspec_utils as utils
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import framework as contrib_framework
+from tensor2robot._tf2_compat import framework as contrib_framework  # was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat shim)
 nest = contrib_framework.nest
 
 TSPEC = utils.ExtendedTensorSpec

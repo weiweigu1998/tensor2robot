@@ -25,7 +25,7 @@ from six.moves import range
 from six.moves import zip
 import tensorflow.compat.v1 as tf
 
-from tensorflow.contrib import layers as contrib_layers
+from tensor2robot._tf2_compat import layers as contrib_layers  # was: from tensorflow.contrib import layers as contrib_layers (TF 2.x compat shim)
 
 
 def plot_labels(labels, max_label=1, predictions=None, name=''):

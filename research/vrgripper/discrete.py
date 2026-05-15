@@ -24,7 +24,7 @@ import gin
 import numpy as np
 from six.moves import range
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import slim
+from tensor2robot._tf2_compat import slim  # was: from tensorflow.contrib import slim (TF 2.x compat shim)
 
 
 def GetDiscreteBins(num_bins, output_min, output_max):

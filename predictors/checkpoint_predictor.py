@@ -28,7 +28,7 @@ from tensor2robot.utils import tensorspec_utils
 from tensorflow.compat.v1 import estimator as tf_estimator
 import tensorflow.compat.v1 as tf  # tf
 
-from tensorflow.contrib import framework as contrib_framework
+from tensor2robot._tf2_compat import framework as contrib_framework  # was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat shim)
 
 _BUSY_WAITING_SLEEP_TIME_IN_SECS = 1
 

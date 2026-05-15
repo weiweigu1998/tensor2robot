@@ -29,8 +29,8 @@ from tensor2robot.research.dql_grasping_lib import tf_modules
 from tensor2robot.utils import tensorspec_utils
 from tensorflow.compat.v1 import estimator as tf_estimator
 import tensorflow.compat.v1 as tf  # tf
-from tensorflow.contrib import framework
-from tensorflow.contrib import layers
+from tensor2robot._tf2_compat import framework  # was: from tensorflow.contrib import framework (TF 2.x compat shim)
+from tensor2robot._tf2_compat import layers  # was: from tensorflow.contrib import layers (TF 2.x compat shim)
 
 TensorSpec = tensorspec_utils.ExtendedTensorSpec  # pylint: disable=invalid-name
 

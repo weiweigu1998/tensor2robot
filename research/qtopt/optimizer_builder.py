@@ -18,7 +18,7 @@
 
 from absl import logging
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import opt as contrib_opt
+from tensor2robot._tf2_compat import opt as contrib_opt  # was: from tensorflow.contrib import opt as contrib_opt (TF 2.x compat shim)
 from tensorflow.contrib.tpu.python.tpu import tpu_function
 
 

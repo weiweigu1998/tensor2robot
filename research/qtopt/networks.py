@@ -23,8 +23,8 @@ from six.moves import zip
 import tensorflow.compat.v1 as tf
 import tf_slim as slim
 
-from tensorflow.contrib import framework as contrib_framework
-from tensorflow.contrib import seq2seq as contrib_seq2seq
+from tensor2robot._tf2_compat import framework as contrib_framework  # was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat shim)
+from tensor2robot._tf2_compat import seq2seq as contrib_seq2seq  # was: from tensorflow.contrib import seq2seq as contrib_seq2seq (TF 2.x compat shim)
 
 # Global constant. The number of layers that are part of the PNN.
 NUM_LAYERS = 19

@@ -21,7 +21,7 @@ from absl import logging
 
 import numpy as np
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import framework as contrib_framework
+from tensor2robot._tf2_compat import framework as contrib_framework  # was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat shim)
 
 
 class VariableLoggerHook(tf.train.SessionRunHook):

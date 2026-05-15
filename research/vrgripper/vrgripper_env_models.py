@@ -29,7 +29,7 @@ from tensor2robot.utils import tensorspec_utils
 from tensorflow.compat.v1 import estimator as tf_estimator
 import tensorflow.compat.v1 as tf  # tf
 import tensorflow_probability as tfp
-from tensorflow.contrib import layers as contrib_layers
+from tensor2robot._tf2_compat import layers as contrib_layers  # was: from tensorflow.contrib import layers as contrib_layers (TF 2.x compat shim)
 
 TensorSpec = tensorspec_utils.ExtendedTensorSpec
 TRAIN = tf_estimator.ModeKeys.TRAIN

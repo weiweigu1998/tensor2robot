@@ -26,7 +26,7 @@ from tensor2robot.preprocessors import abstract_preprocessor
 from tensor2robot.utils import tensorspec_utils as utils
 import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import framework as contrib_framework
+from tensor2robot._tf2_compat import framework as contrib_framework  # was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat shim)
 
 nest = contrib_framework.nest
 
