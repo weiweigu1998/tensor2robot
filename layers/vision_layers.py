@@ -21,7 +21,7 @@ import gin
 from six.moves import range
 from tensor2robot.layers import spatial_softmax
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import slim as contrib_slim
+import tf_slim as contrib_slim  # was: from tensorflow.contrib import slim as contrib_slim (TF 2.x compat)
 
 slim = contrib_slim
 

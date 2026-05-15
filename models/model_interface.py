@@ -33,7 +33,11 @@ import six
 from tensor2robot.preprocessors import abstract_preprocessor
 from tensor2robot.utils import tensorspec_utils
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import tpu as contrib_tpu
+# was: from tensorflow.contrib import tpu as contrib_tpu (TF 2.x compat stub — TPU paths are unreachable in our GPU-only setup)
+class _T2RTPUShim:
+    class RunConfig: pass
+    class TPUConfig: pass
+contrib_tpu = _T2RTPUShim()
 
 TRAIN = tf_estimator.ModeKeys.TRAIN
 EVAL = tf_estimator.ModeKeys.EVAL

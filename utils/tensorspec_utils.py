@@ -28,10 +28,9 @@ from tensor2robot.proto import t2r_pb2
 import tensorflow.compat.v1 as tf
 
 from google.protobuf import text_format
-from tensorflow.contrib import framework as contrib_framework
-
-nest = contrib_framework.nest
-TSPEC = contrib_framework.TensorSpec
+# was: from tensorflow.contrib import framework as contrib_framework (TF 2.x compat: nest + TensorSpec live at top-level tf in TF 2.x)
+nest = tf.nest
+TSPEC = tf.TensorSpec
 
 EXTRA_ASSETS_DIRECTORY = 'assets.extra'
 T2R_ASSETS_FILENAME = 't2r_assets.pbtxt'

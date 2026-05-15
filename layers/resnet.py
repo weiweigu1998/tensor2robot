@@ -22,8 +22,8 @@ import gin
 from six.moves import range
 from tensor2robot.layers import film_resnet_model as resnet_lib
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import framework as contrib_framework
-from tensorflow.contrib import slim as contrib_slim
+from tensorflow.compat import v1 as contrib_framework  # was: from tensorflow.contrib import framework (only get_variables used; tf.compat.v1.global_variables is the TF 2.x equivalent)
+import tf_slim as contrib_slim  # was: from tensorflow.contrib import slim as contrib_slim (TF 2.x compat)
 
 slim = contrib_slim
 

@@ -34,7 +34,7 @@ rather than after.
 
 from six.moves import range
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import layers as contrib_layers
+import tf_slim as contrib_layers  # was: from tensorflow.contrib import layers (TF 2.x compat; tf_slim re-exports the relevant layer ops)
 
 _BATCH_NORM_DECAY = 0.997
 _BATCH_NORM_EPSILON = 1e-5

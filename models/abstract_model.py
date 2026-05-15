@@ -32,9 +32,19 @@ from tensor2robot.preprocessors import noop_preprocessor
 from tensor2robot.utils import tensorspec_utils
 import tensorflow.compat.v1 as tf
 from tensorflow.compat.v1 import estimator as tf_estimator
-from tensorflow.contrib import framework as contrib_framework
-from tensorflow.contrib import tpu as contrib_tpu
-from tensorflow.contrib import training as contrib_training
+# was: from tensorflow.contrib import {framework,tpu,training} (TF 2.x compat stubs — TPU and create_train_op paths are unreachable in our GPU-only setup; get_variables maps to tf.compat.v1.global_variables)
+class _T2RFwShim:
+    nest = tf.nest
+    TensorSpec = tf.TensorSpec
+    @staticmethod
+    def get_variables(*a, **kw):
+        return tf.compat.v1.global_variables(*a, **kw)
+contrib_framework = _T2RFwShim()
+class _T2RTPUShim:
+    class RunConfig: pass
+    class TPUConfig: pass
+contrib_tpu = _T2RTPUShim()
+contrib_training = tf.compat.v1.train  # create_train_op is only used in TPU training paths we don't exercise
 
 FLAGS = flags.FLAGS
 TRAIN = tf_estimator.ModeKeys.TRAIN
