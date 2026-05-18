@@ -63,6 +63,12 @@ MIN_GRIPPER_CLOSE = 0.2
 class ConditionMode(enum.Enum):
   ONEHOT_TASKID = 1
   LANGUAGE_EMBEDDING = 2
+  # VIDEO is an LfO-fork addition: the BC-Z paper (Sec. 5.1) conditions the
+  # policy on an encoded demonstration *video*, but the open-sourced
+  # tensor2robot BC-Z code ships only the ONEHOT_TASKID / LANGUAGE_EMBEDDING
+  # branches. The video branch (see `video_encoder` below) is re-derived from
+  # the paper and added here; the two upstream branches are untouched.
+  VIDEO = 3
 
 
 @gin.configurable
@@ -283,6 +289,52 @@ def resnet_film_network(features,
     network_output_dict = dict(zip(names, estimated_components))
     network_output_dict['policy_image_features'] = net
     return network_output_dict, state_features
+
+
+@gin.configurable
+def video_encoder(video_frames,
+                  mode,
+                  embedding_dim=512,
+                  resnet_size=18):
+  """Encode a demonstration video into a task-conditioning embedding.
+
+  BC-Z paper, Sec. 5.1: a demonstration video is mapped into the *same*
+  embedding space as the language command, so the FiLM-conditioned policy
+  (`resnet_film_network`) can be driven by either modality. Each of the
+  `num_frames` frames is run through a ResNet backbone (no FiLM), spatially
+  global-average-pooled to a per-frame feature vector, and the per-frame
+  vectors are mean-pooled over time into one `embedding_dim` vector per video.
+
+  This branch is *additive* — it is not part of the open-sourced tensor2robot
+  BC-Z code (which ships only the language / one-hot-task-id ConditionMode) and
+  is re-derived from the paper. The ONEHOT_TASKID / LANGUAGE_EMBEDDING code
+  paths are untouched.
+
+  Args:
+    video_frames: (batch, num_frames, H, W, 3) float32 image stack in [0, 1].
+    mode: TRAIN / EVAL / PREDICT.
+    embedding_dim: Output embedding width; 512 to match the Universal Sentence
+      Encoder language embedding so the policy is conditioning-modality-agnostic.
+    resnet_size: Per-frame backbone depth (18 — the paper's light encoder; a
+      ResNet-18 already emits 512 channels, so no projection is needed).
+
+  Returns:
+    (batch, embedding_dim) float32 video embedding.
+  """
+  is_training = mode == TRAIN
+  _batch, num_frames, h, w, c = video_frames.shape.as_list()
+  flat = tf.reshape(video_frames, [-1, h, w, c])
+  with tf.variable_scope('video_encoder', reuse=tf.AUTO_REUSE):
+    outputs = resnet.resnet_model(
+        flat, is_training, num_classes=1, resnet_size=resnet_size,
+        return_intermediate_values=True)
+    per_frame = tf.squeeze(outputs['final_reduce_mean'], axis=[1, 2])  # (B*F, feat)
+    feat_dim = per_frame.shape.as_list()[-1]
+    per_frame = tf.reshape(per_frame, [-1, num_frames, feat_dim])
+    embedding = tf.reduce_mean(per_frame, axis=1)  # (B, feat) — mean over frames
+    if feat_dim != embedding_dim:
+      embedding = tf.layers.dense(embedding, embedding_dim, name='video_proj')
+  return embedding
 
 
 @gin.configurable
